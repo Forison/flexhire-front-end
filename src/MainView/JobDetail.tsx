@@ -36,7 +36,7 @@ export default function JobDetail({
   name,
   location,
   description,
-  logo,
+  poster_url,
   elevation = 5,
 }: Company): JSX.Element {
   // rely on api call to initialize 
@@ -78,13 +78,13 @@ export default function JobDetail({
       />
       <CardMedia
         component="img"
-        height="194"
-        image={logo}
+        height="150"
+        image={`http://localhost:4000${poster_url}`}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {getInitial(description, 150)}
+          {getInitial(description, 40)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

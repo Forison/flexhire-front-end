@@ -2,29 +2,20 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import JobDetail from './JobDetail'
 import { Company } from '../Interface/Company'
-// import { Paper } from '@mui/material'
-
-
 interface Prop  {
-  job: Company[]
+  job: any
 }
 
 export default function Job({ job }: Prop): JSX.Element {
-
+  const { name, description, location, poster_url } = job.attributes
   return (
-	  <>
-      {job.map((jobInfo, index) => (	
-        <Box key={index}>
-        {/* <Paper elevation={index > 24 ? index - 1 : index}> */}
-          <JobDetail 
-            name={jobInfo.name}
-            location={jobInfo.location}
-            description={jobInfo.description}
-            logo={jobInfo.logo}
-          />
-        {/* </Paper> */}
-      </Box>
-      ))}
-	</>
+    <Box sx={{ mt: '3.rem', mb: '3rem'}} key={job.id}>
+      <JobDetail 
+        name={name}
+        location={location}
+        description={description}
+        poster_url={poster_url}
+      />
+    </Box>
   )
 }
