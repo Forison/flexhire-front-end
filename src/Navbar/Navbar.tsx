@@ -42,7 +42,6 @@ export default function NavBar({ pages }: Prop): JSX.Element {
     axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
     axios.get(`${BASE_API_ENDPOINT}/is_logged_in`)
       .then(function (response) {
-        console.log(response)
         setIsLoggedIn(response.data.data)
       })
       .catch(function (error) {
@@ -89,10 +88,15 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                 </MenuItem>
               ))}
               <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>
-                    {isLoggedIn ? 'Log out' : 'Login'}
-                  </Typography>
-                </MenuItem>
+                <Typography textAlign='center'>
+                  {isLoggedIn ? 'Log out' : 'Login'}
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign='center'>
+                  {isLoggedIn ? 'UPLOAD' : ''}
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -110,6 +114,12 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {isLoggedIn ? 'Log out' : 'Login'}
+              </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {isLoggedIn ? 'UPLOAD' : ''}
               </Button>
           </Box>
           

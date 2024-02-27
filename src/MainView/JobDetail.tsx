@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
 import { styled } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
@@ -14,7 +16,7 @@ import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Company } from '../Interface/Company'
-import { getInitial } from '../Helpers/helperMethods'
+import { BASE_API_ENDPOINT, POSITIVE_FEEDBACK, getInitial } from '../Helpers/helperMethods'
 import { Paper } from '@mui/material'
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -38,8 +40,8 @@ export default function JobDetail({
   description,
   poster_url,
   elevation = 5,
+  jobId,
 }: Company): JSX.Element {
-  // rely on api call to initialize 
   const [expanded, setExpanded] = useState(false)
   const [like, setlike] = useState(false)
   const [share, setShare] = useState(false)
@@ -49,12 +51,32 @@ export default function JobDetail({
   }
 
   const handleFavorite = () => {
-    setlike(!like)
+    axios.patch(`${BASE_API_ENDPOINT}/like_job/${jobId}`)
+      .then(function (response) {
+        if(response.status === POSITIVE_FEEDBACK){
+          setlike(response.data.has_like)
+        }
+      })
+      .catch(function (error) {
+        return error
+      })
   }
+ 
+  useEffect(()=> {
+    const cookies = new Cookies()
+    axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
+    axios.get(`${BASE_API_ENDPOINT}/favorite_job/${jobId}`)
+      .then(function (response) {
+        if(response.status === POSITIVE_FEEDBACK){
+          setlike(response.data.has_like)
+        }
+      })
+      .catch(function (error) {
+        return error
+      })
+  },[])
 
-  const handleShare = () => {
-    setShare(!share)
-  }
+  const handleShare = () => setShare(!share)
 
   return (
     <Paper elevation={elevation > 24 ? elevation - 1 : elevation}>
@@ -67,11 +89,6 @@ export default function JobDetail({
             aria-label="job">
             {getInitial(name, 1)}
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
         }
         title={`${name} ${location}`}
         subheader="September 14, 2016"

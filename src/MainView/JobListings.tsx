@@ -45,7 +45,7 @@ export default function JobListings(): JSX.Element {
         <Box className='col-3 side-bar-view d-none d-md-block'>
           <SideBarAccordion />
         </Box>
-        <Box className='col-9'>
+        <Box className='col-sm-12 col-md-9'>
           <Box className='row p-3'>
             {jobs.map((job, index) => (
               <Box className='col-12 col-sm-6 col-md-4 col-lg-3' key={index}>

@@ -5,7 +5,6 @@ import JobListings from '../MainView/JobListings'
 import AuthenticationForm from '../Authentication/AuthenticationForm'
 import JobUpload from '../MainView/JobUpload'
 
-console.log()
 export const router = createBrowserRouter([
     {   
       path: '/' ,

@@ -5,4 +5,5 @@ export interface Company {
   description: string
   poster_url: string
 	elevation?: number
+  jobId?: number
 }
