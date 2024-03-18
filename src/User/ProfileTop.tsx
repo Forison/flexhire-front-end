@@ -23,9 +23,27 @@ const USER_PROFILE_QUERY = gql`
     }
   }
 `
+
+// {
+//   user(id: "dXNlcnMtMzAwOQ==") {
+//     name
+//     avatarUrl
+//     profile{
+//       availability
+//       available
+//       textIntroduction
+//     }
+//     userSkills{
+//       experience
+//       skill {
+//         name
+//       }
+//     }
+//   }
+// }
 export default function ProfileTop(): JSX.Element {
   const { data, error } = useQuery(USER_PROFILE_QUERY)
-  
+  console.log(data)
   if (error) return <Notice status={error.message} isSuccess={false} />
   return (
     <Card>
@@ -54,9 +72,15 @@ export default function ProfileTop(): JSX.Element {
             marginTop='1.5rem'
             marginBottom='1.5rem'
           >
-            <Button variant='contained'>Primary</Button>
-            <Button variant='contained'>Disabled</Button>
-            <Button variant='contained'>Link</Button>
+            {data?.user?.userSkills.map((userSkill, index) => (
+              <Button
+                key={index}
+                variant='outlined'
+                className='text-nowrap'
+              >
+                  {userSkill.skill.name} {userSkill.experience}
+                </Button>
+            ))}
           </Stack>
           <Typography variant='body2' gutterBottom className='text-center'>
           {data?.user?.profile?.textIntroduction}

@@ -15,7 +15,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
   headers: { 
-    'FLEXHIRE-API-KEY': `${process.env.REACT_APP_FLEXHIRE_API_KEY}`,
+    'FLEXHIRE-API-KEY': '0r3m6yw3g1py6fvc',
   }
 })
 
