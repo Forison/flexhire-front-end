@@ -20,10 +20,10 @@ const defaultValues = {
   passwordConfirmation: '',
 }
 interface Prop {
-  setShowSignInPage: Dispatch<SetStateAction<boolean>>
+  setHasAccount: Dispatch<SetStateAction<boolean>>
 }
 
-export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
+export default function SignIn({ setHasAccount }: Prop): JSX.Element {
   const [status, setStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIssuccess] = useState(false)
@@ -52,7 +52,7 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
         storeToken(headers.authorization)
         setIssuccess(true)
         setTimeout(() => {
-          navigate('/')
+          navigate('/Jobs')
         }, 2000)
         
       }else {
@@ -135,7 +135,7 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
       </Button>
       <Typography align='center'>
         <Link 
-          onClick={() => setShowSignInPage(true)}
+          onClick={() => setHasAccount(true)}
           variant='body2' 
           underline='hover'
         >

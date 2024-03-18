@@ -53,7 +53,7 @@ export default function JobUpload(): JSX.Element {
           setIsSuccess(true)
           setStatus(message)
           setTimeout(() => {
-            navigate('/')
+            navigate('/jobs')
           }, 2000)
         }else {
           setIsSuccess(false)

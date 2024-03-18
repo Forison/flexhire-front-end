@@ -14,7 +14,6 @@ import { red } from '@mui/material/colors'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Company } from '../Interface/Company'
 import { BASE_API_ENDPOINT, POSITIVE_FEEDBACK, getInitial } from '../Helpers/helperMethods'
 import { Paper } from '@mui/material'
@@ -39,16 +38,14 @@ export default function JobDetail({
   location,
   description,
   poster_url,
+  creation_date,
   elevation = 5,
   jobId,
 }: Company): JSX.Element {
   const [expanded, setExpanded] = useState(false)
   const [like, setlike] = useState(false)
-  const [share, setShare] = useState(false)
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
+  const handleExpandClick = () => setExpanded(!expanded)
 
   const handleFavorite = () => {
     axios.patch(`${BASE_API_ENDPOINT}/like_job/${jobId}`)
@@ -75,9 +72,7 @@ export default function JobDetail({
         return error
       })
   },[])
-
-  const handleShare = () => setShare(!share)
-
+  console.log(creation_date)
   return (
     <Paper elevation={elevation > 24 ? elevation - 1 : elevation}>
       <CardHeader
@@ -90,15 +85,17 @@ export default function JobDetail({
             {getInitial(name, 1)}
           </Avatar>
         }
-        title={`${name} ${location}`}
-        subheader="September 14, 2016"
+        title={name}
+
+        subheader={`${creation_date}`}
       />
       <CardMedia
         component="img"
         height="150"
-        image={`http://localhost:4000${poster_url}`}
+        image={`${BASE_API_ENDPOINT}${poster_url}`}
         alt="Paella dish"
       />
+      <Typography variant="body1" sx={{ margin: '1rem' }}>Location: {location}</Typography>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {getInitial(description, 40)}
@@ -107,9 +104,6 @@ export default function JobDetail({
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={handleFavorite}>
           <FavoriteIcon sx={{color: like ? 'secondary.main' : 'danger.main'}} />
-        </IconButton>
-        <IconButton aria-label="share" onClick={handleShare}>
-          <ShareIcon sx={{color: share ? 'secondary.main' : 'danger.main'}}/>
         </IconButton>
         <ExpandMore
           expand={expanded}

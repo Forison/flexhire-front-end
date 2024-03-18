@@ -4,12 +4,9 @@ import Grid from '@mui/material/Grid'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 
-interface Prop {
-  setShowSignInPage: Dispatch<SetStateAction<boolean>>
-}
 
 export default function AuthenticationForm(): JSX.Element {
-  const [showSignInPage, setShowSignInPage] = useState(false)
+  const [hasAccount, setHasAccount] = useState(true)
 
   return (
     <Grid container>
@@ -20,10 +17,10 @@ export default function AuthenticationForm(): JSX.Element {
             p: 6,
             mt: '15%',
           }}>
-            {showSignInPage ? 
-              <SignIn setShowSignInPage={setShowSignInPage}/> 
+            {hasAccount ? 
+              <SignIn setHasAccount={setHasAccount}/> 
               : 
-              <SignUp setShowSignInPage={setShowSignInPage} />
+              <SignUp setHasAccount={setHasAccount} />
             }
           </Box> 
         </Grid>

@@ -6,4 +6,5 @@ export interface Company {
   poster_url: string
 	elevation?: number
   jobId?: number
+  creation_date?: Date
 }

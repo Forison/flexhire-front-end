@@ -2,23 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Box } from '@mui/material'
 import Navbar from '../Navbar/Navbar'
-import SideBarAccordion from '../SideBar/SideBarAccordion'
 import Job from './Job'
 import { BASE_API_ENDPOINT } from '../Helpers/helperMethods'
 import './MainView.css'
 
-
-const PAGES = ['Jobs', 'Dashboard', 'About']
-const EXTRA_PAGES = PAGES.concat(
-  'Opportunity',
-  'Applied',
-  'Screening', 
-  'Interviews',
-  'Offers',
-  'Profile',
-  'Settings',
-  'Tutorials'
-)
+const PAGES = ['Jobs', 'Profile']
 
 export default function JobListings(): JSX.Element {
   const [jobs, setJobs] = useState([])
@@ -39,12 +27,8 @@ export default function JobListings(): JSX.Element {
         <Box className='col-12 d-none d-md-block'>
           <Navbar pages={PAGES}/>
         </Box>
-        <Box className='col-12 d-block d-sm-block d-md-none'>
-          <Navbar pages={EXTRA_PAGES}/>
-        </Box>
-        <Box className='col-3 side-bar-view d-none d-md-block'>
-          <SideBarAccordion />
-        </Box>
+        <Box className='col-12 d-block d-sm-block d-md-none'/>
+        <Box className='col-3 side-bar-view d-none d-md-block'/>
         <Box className='col-sm-12 col-md-9'>
           <Box className='row p-3'>
             {jobs.map((job, index) => (

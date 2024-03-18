@@ -18,7 +18,7 @@ import Loading from '../Loading/Loading'
 import Notice from '../AlertBanner/Notice'
 
 interface Prop {
-  setShowSignInPage: Dispatch<SetStateAction<boolean>>
+  setHasAccount: Dispatch<SetStateAction<boolean>>
 }
 
 const defaultValues = {
@@ -26,7 +26,7 @@ const defaultValues = {
   password: '',
 }
 
-export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
+export default function SignIn({ setHasAccount }: Prop): JSX.Element {
   const [status, setStatus] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIssuccess] = useState(false)
@@ -36,16 +36,16 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
     defaultValues: defaultValues,
     resolver: yupResolver(signInSchema)
   })
-
+  
   const onSubmit = (data) => {
     setIsLoading(true)
     const { email, password } = data
+ 
     axios.post(`${BASE_API_ENDPOINT}/login`, {
       user: { email, password }
     })
     .then(function (response) {
       const { data: { status: { code, message } }, headers } = response
-      console.log(response)
       setTimeout(() => {
         setStatus(message)
       }, 1000)
@@ -54,7 +54,7 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
         storeToken(headers.authorization)
         setIssuccess(true)
         setTimeout(() => {
-          navigate('/')
+          navigate('/Jobs')
         }, 2000)
         
       }else {
@@ -68,7 +68,8 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
     })
   }
 
-  if(isLoading) return (<Box><Loading /></Box>)
+
+  if(isLoading) return <Loading />
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {status && <Notice status={status} isSuccess={isSuccess} />}
@@ -108,13 +109,13 @@ export default function SignIn({ setShowSignInPage }: Prop): JSX.Element {
       </Button>
       <Typography align='center'>
         <Link
-          onClick={() => setShowSignInPage(false)}
+          onClick={() => setHasAccount(false)}
           variant="body2" 
           underline="hover"
           sx={{display: 'inline-flex'}}
         >
         <ArrowBackIosIcon sx={{ color: 'primary'}}  />
-        Go back to sign up Page
+        Don't have an account? create account
         </Link>
       </Typography>
     </Box>

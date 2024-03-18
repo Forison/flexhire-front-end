@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import AppBar from '@mui/material/AppBar'
 import { 
@@ -9,7 +10,6 @@ import {
   Typography,
   Menu,
   Container,
-  Button,
   MenuItem,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -22,23 +22,26 @@ interface Prop {
 
 export default function NavBar({ pages }: Prop): JSX.Element {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+  const navigate = useNavigate()
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
+  const cookies = new Cookies()
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
+  const handleCloseNavMenu = () => setAnchorElNav(null)
+  
+  const logout = () => {
+    cookies.remove('access_token')
+    navigate('/jobs/SignIn')
   }
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
+  const handleNavigation = (page) => {
+    if(page === 'logout') return logout()
+    navigate(`${page}`)
   }
 
   useEffect(() => {
-    const cookies = new Cookies()
     axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
     axios.get(`${BASE_API_ENDPOINT}/is_logged_in`)
       .then(function (response) {
@@ -83,7 +86,7 @@ export default function NavBar({ pages }: Prop): JSX.Element {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={ ()=> handleNavigation(page)}>
                   <Typography textAlign='center'>{page}</Typography>
                 </MenuItem>
               ))}
@@ -93,34 +96,33 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign='center'>
-                  {isLoggedIn ? 'UPLOAD' : ''}
-                </Typography>
+              {isLoggedIn && <Typography textAlign='center'>Upload</Typography>}
               </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <MenuItem
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleNavigation(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
-              </Button>
+              </MenuItem>
             ))}
-              <Button
-                onClick={handleCloseNavMenu}
+            {isLoggedIn && 
+             <MenuItem 
+               onClick={()=> handleNavigation('jobUpload')}
+               sx={{ my: 2, color: 'white', display: 'block' }}
+             >
+              Upload
+              </MenuItem>}
+              <MenuItem
+                onClick={()=> handleNavigation(isLoggedIn ? 'logout' : 'signin')}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {isLoggedIn ? 'Log out' : 'Login'}
-              </Button>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {isLoggedIn ? 'UPLOAD' : ''}
-              </Button>
+              </MenuItem>
           </Box>
           
           <Box sx={{ mr: '1.6rem' }}>
@@ -129,7 +131,6 @@ export default function NavBar({ pages }: Prop): JSX.Element {
           <Box sx={{ flexGrow: 0 }}>
             <UserModalUpload />
           </Box>
-
         </Toolbar>
       </Container>
     </AppBar>
