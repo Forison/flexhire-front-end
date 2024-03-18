@@ -72,7 +72,7 @@ export default function JobDetail({
         return error
       })
   },[])
-  console.log(creation_date)
+
   return (
     <Paper elevation={elevation > 24 ? elevation - 1 : elevation}>
       <CardHeader
