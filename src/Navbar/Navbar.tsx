@@ -14,7 +14,6 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import SimpleBadge from './SimpleBadge'
-import UserModalUpload from '../User/UserModalUpload'
 import { BASE_API_ENDPOINT } from '../Helpers/helperMethods'
 interface Prop {
   pages: string[]
@@ -30,16 +29,8 @@ export default function NavBar({ pages }: Prop): JSX.Element {
   const cookies = new Cookies()
 
   const handleCloseNavMenu = () => setAnchorElNav(null)
-  
-  const logout = () => {
-    cookies.remove('access_token')
-    navigate('/jobs/SignIn')
-  }
 
-  const handleNavigation = (page) => {
-    if(page === 'logout') return logout()
-    navigate(`${page}`)
-  }
+  const handleNavigation = (page) => navigate(`${page}`)
 
   useEffect(() => {
     axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
@@ -90,14 +81,6 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                   <Typography textAlign='center'>{page}</Typography>
                 </MenuItem>
               ))}
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign='center'>
-                  {isLoggedIn ? 'Log out' : 'Login'}
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-              {isLoggedIn && <Typography textAlign='center'>Upload</Typography>}
-              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -110,26 +93,9 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                 {page}
               </MenuItem>
             ))}
-            {isLoggedIn && 
-             <MenuItem 
-               onClick={()=> handleNavigation('jobUpload')}
-               sx={{ my: 2, color: 'white', display: 'block' }}
-             >
-              Upload
-              </MenuItem>}
-              <MenuItem
-                onClick={()=> handleNavigation(isLoggedIn ? 'logout' : 'signin')}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {isLoggedIn ? 'Log out' : 'Login'}
-              </MenuItem>
-          </Box>
-          
+          </Box>       
           <Box sx={{ mr: '1.6rem' }}>
             <SimpleBadge />
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <UserModalUpload />
           </Box>
         </Toolbar>
       </Container>
