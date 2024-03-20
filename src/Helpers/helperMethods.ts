@@ -7,5 +7,5 @@ export const positionType = (positionType: string[]): string => {
 }
 
 export const salary = (max: string, min: string): string => {
-	return `   ·   ${min} · ${max}`
+	return `   ·   ${min} to ${max}`
 }
