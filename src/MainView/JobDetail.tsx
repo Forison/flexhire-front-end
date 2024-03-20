@@ -31,6 +31,7 @@ interface Job {
   positionTypes: string[]
   firm: CustomObject
   jobSkills: JobSkills[]
+  rateMode: string
   freelancerRate: Rate
   minFreelancerRate: Rate
   __typename: string
@@ -44,6 +45,7 @@ export default function JobDetail({ job }: Props): JSX.Element {
     title, 
     firm,
     positionTypes,
+    rateMode,
     description,
     jobSkills,
     freelancerRate,
@@ -63,7 +65,7 @@ export default function JobDetail({ job }: Props): JSX.Element {
                 {positionType(positionTypes)}
               </Typography>
               <Typography gutterBottom variant="subtitle1" component= 'span' color="text.secondary">
-                {salary(freelancerRate.formatted, minFreelancerRate.formatted)}
+                {salary(freelancerRate.formatted, minFreelancerRate.formatted)}/{rateMode}
               </Typography>
             </Box>
             <Stack

@@ -21,6 +21,7 @@ query JobOpportunities{
           firm{
             name
           }
+          rateMode
           freelancerRate{
             formatted(nullifyIfZero: true)
             currency{
