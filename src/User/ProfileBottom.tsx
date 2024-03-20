@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid, Box, Typography, Tab, Tabs, CardMedia } from '@mui/material'
-import { useQuery, gql } from "@apollo/client"
+import { useQuery, gql } from '@apollo/client'
 import Loading from '../Loading/Loading'
 import Notice from '../AlertBanner/Notice'
 

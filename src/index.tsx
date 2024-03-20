@@ -6,17 +6,20 @@ import { router } from './Route/FlexhireRoutes'
 
 import 'bootstrap/dist/css/bootstrap.css'
 
+const apiKey = `${process.env.REACT_APP_FLEXHIRE_API_KEY}`
+const apiEndpoint = `${process.env.REACT_APP_FLEXHIRE_API_ENDPOINT}`
+
 const link = createHttpLink({
-  uri: 'https://flexhire.com/api/v2',
-  credentials: 'omit'
+  uri: apiEndpoint,
+  credentials: 'omit',
+  headers: { 
+    'FLEXHIRE-API-KEY': apiKey,
+  }
 })
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
-  headers: { 
-    'FLEXHIRE-API-KEY': `${process.env.REACT_APP_FLEXHIRE_API_KEY}`,
-  }
 })
 
 const root = ReactDOM.createRoot(

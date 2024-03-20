@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import AppBar from '@mui/material/AppBar'
+import { gql, useQuery } from '@apollo/client'
 import { 
   Box,
   Toolbar,
@@ -11,37 +10,37 @@ import {
   Menu,
   Container,
   MenuItem,
+  Avatar,
+  Stack,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import SimpleBadge from './SimpleBadge'
-import { BASE_API_ENDPOINT } from '../Helpers/helperMethods'
+
 interface Prop {
   pages: string[]
 }
 
+const USER_QUERY = gql`
+  {
+    user(rawId: 3009) {
+      name
+      avatarUrl
+    }
+  }
+`
+
 export default function NavBar({ pages }: Prop): JSX.Element {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { data } = useQuery(USER_QUERY)
+
   const navigate = useNavigate()
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
-  const cookies = new Cookies()
 
   const handleCloseNavMenu = () => setAnchorElNav(null)
-
+  
   const handleNavigation = (page) => navigate(`${page}`)
-
-  useEffect(() => {
-    axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
-    axios.get(`${BASE_API_ENDPOINT}/is_logged_in`)
-      .then(function (response) {
-        setIsLoggedIn(response.data.data)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  },[])
 
   return (
     <AppBar position='static'>
@@ -93,10 +92,16 @@ export default function NavBar({ pages }: Prop): JSX.Element {
                 {page}
               </MenuItem>
             ))}
-          </Box>       
+          </Box>    
           <Box sx={{ mr: '1.6rem' }}>
             <SimpleBadge />
           </Box>
+          <Stack spacing={{ xs: 1, sm: 0 }} useFlexGap flexWrap="wrap">
+            <IconButton>
+              <Avatar alt='Me' src={data?.user?.avatarUrl} />
+            </IconButton>
+            <Typography sx={{ fontSize: '.75rem'}}>{data?.user?.name}</Typography>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>

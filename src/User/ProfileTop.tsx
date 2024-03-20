@@ -8,7 +8,7 @@ import Notice from '../AlertBanner/Notice'
 
 const USER_PROFILE_QUERY = gql`
   {
-    user(id: "dXNlcnMtMzAwOQ==") {
+    user(rawId: 3009) {
       name
       avatarUrl
       profile{
@@ -26,7 +26,7 @@ const USER_PROFILE_QUERY = gql`
 
 export default function ProfileTop(): JSX.Element {
   const { data, error } = useQuery(USER_PROFILE_QUERY)
-  console.log(data)
+
   if (error) return <Notice status={error.message} isSuccess={false} />
   return (
     <Card>
@@ -48,8 +48,7 @@ export default function ProfileTop(): JSX.Element {
             {data?.user?.name}
           </Typography>
           <Stack 
-            direction='row'
-            spacing={2}
+            spacing={{ xs: 1, sm: 1 }} useFlexGap flexWrap="wrap" direction="row"
             alignItems='center'
             justifyContent='center'
             marginTop='1.5rem'
