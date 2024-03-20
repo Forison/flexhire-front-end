@@ -4,7 +4,12 @@ This project contains solution about building and consuming data from a graphql 
 
 ## Description
 
-This applivation is built primarily with react.js framework. The application enables user to able to make basic mathematical operations as listed in the ```[Features]``` section below.
+This is a small project that demonstrates how to make a graphql queries using appolloClient api to get information from a graphql enpoint.
+In this project, before users can acces the full application, users need to have an api key from flexhire. The api key is going to be an authentication source for the users to have access to the website. The website shows information about myself vis-a-vis the information I have provided on Flexhire.
+
+![link up](./iShot_2024-03-20_04.16.31.png)
+![link up](./iShot_2024-03-20_04.16.50.png)
+![link up](./iShot_2024-03-20_23.18.10.png)
 
 ## Technologies
 
