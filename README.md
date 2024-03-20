@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Appollo Graphql solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project contains solution about building and consuming data from a graphql enpoint
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This applivation is built primarily with react.js framework. The application enables user to able to make basic mathematical operations as listed in the ```[Features]``` section below.
 
-### `yarn start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React
+- TypeScript
+- Material UI
+- AppolloClient
+- Bootstrap
+- GraphQL endpoint
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
+render my profile and job opportunities associated with my profile
 
-### `yarn test`
+## Usage
+This project has not been deployed to production, hence can be used by setting it up locally.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Clone the repository to your local machine
 
-### `yarn build`
+```sh
+$ git https://github.com/Forison/flexhire-front-end
+```
+> cd into the directory
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+$ git checkout Appollo-graphql
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+get endpoint and apikey from Flexhire
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+$ npm install
+```
 
-### `yarn eject`
+```sh
+$ npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Designed and developed by
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Boakye Addo Forison](https://github.com/Forison)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Contact
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[LinkedIn](https://www.linkedin.com/in/forison/)
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Fork it (https://github.com/Forison/calculator/)
+2. Create your feature branch (git checkout -b feature/[choose-a-name])
+3. Commit your changes (git commit -am 'What this commit will fix/add')
+4. Push to the branch (git push origin feature/[chosen name])
+5. Create a new Pull Request
