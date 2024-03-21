@@ -27,8 +27,8 @@ export default function SignIn({ setHasAccount }: Prop): JSX.Element {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIssuccess] = useState(false)
   const navigate = useNavigate()
-  const ENDPOINT = process.env
-  console.log(ENDPOINT)
+  // const ENDPOINT = 
+  // console.log(ENDPOINT)
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: defaultValues,
@@ -39,7 +39,7 @@ export default function SignIn({ setHasAccount }: Prop): JSX.Element {
     console.log(data)
     setIsLoading(true)
     const { name, email, password } = data
-    axios.post(`${ENDPOINT}/signup`, {
+    axios.post(`${process.env.REACT_APP_REST_API_ENDPOINT}/signup`, {
       user: { name, email, password }
     })
     .then(function (response) {

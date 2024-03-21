@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# RESTFUL API solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project contains solution about building and consuming data from a REST API endpoint
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This is a front-end application which relies on (this)[https://github.com/Forison/back-end] backend API. The backend API contains logic which enables use to create account, login, logout, upload, jobs, like uploaded jobs, view profile, view liked jobs and view jobs which were uploaded by the user.
 
-### `yarn start`
+![link up](./myJobs.png)
+![link up](./myFav.png)
+![link up](./login.png)
+![link up](./josbUpload.png)
+![link up](./jobs.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React
+- TypeScript
+- Material UI
+- REST API
+- Bootstrap
 
-### `yarn test`
+## Usage
+This project has not been deployed to production, hence can be used by setting it up locally.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Clone the repository to your local machine
 
-### `yarn build`
+```sh
+$ git https://github.com/Forison/flexhire-front-end
+```
+> cd into the directory
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+$ git checkout restful-api
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+$ yarn install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+$ git clone https://github.com/Forison/back-end
+```
 
-### `yarn eject`
+```sh
+$ bundle install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+$ rails s
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+Start the front-end application by running
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+$ yarn start
+```
+## Designed and developed by
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[Boakye Addo Forison](https://github.com/Forison)
 
-## Learn More
+## Contact
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[LinkedIn](https://www.linkedin.com/in/forison/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+
+1. Fork it (https://github.com/Forison/calculator/)
+2. Create your feature branch (git checkout -b feature/[choose-a-name])
+3. Commit your changes (git commit -am 'What this commit will fix/add')
+4. Push to the branch (git push origin feature/[chosen name])
+5. Create a new Pull Request
