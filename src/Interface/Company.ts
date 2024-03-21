@@ -7,4 +7,5 @@ export interface Company {
 	elevation?: number
   jobId?: number
   creation_date?: Date
+  enableLike?: boolean
 }

@@ -1,8 +1,17 @@
-import * as React from 'react'
-import { Grid, Box, Typography, Tab, Tabs, CardMedia } from '@mui/material'
-import { useQuery, gql } from "@apollo/client"
+import React, { useEffect, useState } from 'react'
+import {
+  Grid,
+  Box,
+  Typography,
+  Tab,
+  Tabs,
+  CardMedia,
+} from '@mui/material'
+import axios from 'axios'
+import { BASE_API_ENDPOINT } from '../Helpers/helperMethods'
+import Job from '../MainView/Job'
 import Loading from '../Loading/Loading'
-import Notice from '../AlertBanner/Notice'
+
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -30,64 +39,69 @@ function TabPanel(props: TabPanelProps) {
   )
 }
 
-const USER_PROFILE_QUERY = gql`
-  {
-    user(id: "dXNlcnMtMzAwOQ==") {
-      name
-      email
-      avatarUrl
-      answers {
-        url
-      }
-      video{
-        url
-      }
-    }
-  }
-`
 
 export default function ProfileBottom(): JSX.Element {
-  const [value, setValue] = React.useState(0)
-  const { data, error, loading } = useQuery(USER_PROFILE_QUERY)
+  const [value, setValue] = useState(0)
+  const [userJobs, setUserJobs] = useState([])
+  const [userFavoriteJobs, setUserFavoriteJobs] = useState([])
+  const [isloading, setIsloading] = useState(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault()
     setValue(newValue)
   }
-  if(loading) return <Loading />
-  if (error) return <Notice status={error.message} isSuccess={false} />
+
+  useEffect(() => {
+    setIsloading(true)
+    axios.get(`${BASE_API_ENDPOINT}/user_jobs`)
+      .then(function (response) {
+        setUserJobs(response.data.data.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    setIsloading(false)
+  },[])
+
+  useEffect(() => {
+    setIsloading(true)
+    axios.get(`${BASE_API_ENDPOINT}/user_favorite_job`)
+      .then(function (response) {
+        setUserFavoriteJobs(response.data.data.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    setIsloading(false)
+  },[])
+  
+  if(isloading) return <Loading />
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label='Introductory Video'/>
-          <Tab label='Answers' />
+          <Tab label='My jobs'/>
+          <Tab label='My favorite jobs' />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-      <CardMedia
-        component='video'
-        image={data?.video?.url}
-        title='Introductory video'
-        controls
-        autoPlay
-      />
+        <Box className='row p-3'>
+          {userJobs.map((job, index) => (
+            <Box className='col-12 col-sm-6 col-md-4' key={index}>
+              <Job job={job} enableLike= {false} />
+            </Box>
+          ))}
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Grid container component={'div'}>
-          {data?.user?.answers.map((answer, index) => {
-            return (
-              <Grid item lg={6} xs={12} key={index}>
-                <CardMedia
-                  component='video'
-                  image={answer.url}
-                  title='answer'
-                  controls
-                  sx={{ padding: '.5rem'}}
-                />
-              </Grid>
-          )})}
-        </Grid>
+        <Box className='row p-3'>
+          {userFavoriteJobs.map((job, index) => (
+            <Box className='col-12 col-sm-6 col-md-4' key={index}>
+              <Job job={job} enableLike={false} />
+            </Box>
+          ))}
+        </Box>
       </TabPanel>
     </Box>
   )

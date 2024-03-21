@@ -1,57 +1,29 @@
-import React from 'react'
-import { gql, useQuery } from '@apollo/client'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { Avatar, Box, Button, Stack } from '@mui/material'
-import Notice from '../AlertBanner/Notice'
+import { Avatar, Box } from '@mui/material'
+import { BASE_API_ENDPOINT } from '../Helpers/helperMethods'
 
-const USER_PROFILE_QUERY = gql`
-  {
-    user(id: "dXNlcnMtMzAwOQ==") {
-      name
-      avatarUrl
-      profile{
-        textIntroduction
-      }
-      userSkills{
-        experience
-        skill {
-          name
-        }
-      }
-    }
-  }
-`
-
-// {
-//   user(id: "dXNlcnMtMzAwOQ==") {
-//     name
-//     avatarUrl
-//     profile{
-//       availability
-//       available
-//       textIntroduction
-//     }
-//     userSkills{
-//       experience
-//       skill {
-//         name
-//       }
-//     }
-//   }
-// }
 export default function ProfileTop(): JSX.Element {
-  const { data, error } = useQuery(USER_PROFILE_QUERY)
-  console.log(data)
-  if (error) return <Notice status={error.message} isSuccess={false} />
+  const [avatar, setAvatar] = useState()
+  useEffect(() => {
+    
+    axios.get(`${BASE_API_ENDPOINT}/get_profile_picture`)
+      .then(function (response) {
+        setAvatar(response.data.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  },[])
+
   return (
     <Card>
       <Box>
         <Box sx={{ height: '500px', backgroundColor: 'info.main'}}>
           <Avatar
             alt="Remy Sharp"
-            src={data?.user?.avatarUrl}
+            src={avatar}
             sx={{ 
               width: 150,
               height: 150,
@@ -60,32 +32,6 @@ export default function ProfileTop(): JSX.Element {
               position: 'absolute',
           }}/>
         </Box>
-        <CardContent>
-          <Typography gutterBottom variant='h5' className='text-center mt-5'>
-            {data?.user?.name}
-          </Typography>
-          <Stack 
-            direction='row'
-            spacing={2}
-            alignItems='center'
-            justifyContent='center'
-            marginTop='1.5rem'
-            marginBottom='1.5rem'
-          >
-            {data?.user?.userSkills.map((userSkill, index) => (
-              <Button
-                key={index}
-                variant='outlined'
-                className='text-nowrap'
-              >
-                  {userSkill.skill.name} {userSkill.experience}
-                </Button>
-            ))}
-          </Stack>
-          <Typography variant='body2' gutterBottom className='text-center'>
-          {data?.user?.profile?.textIntroduction}
-          </Typography>
-        </CardContent>
       </Box>
     </Card>
   )

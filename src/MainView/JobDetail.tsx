@@ -41,6 +41,7 @@ export default function JobDetail({
   creation_date,
   elevation = 5,
   jobId,
+  enableLike = true,
 }: Company): JSX.Element {
   const [expanded, setExpanded] = useState(false)
   const [like, setlike] = useState(false)
@@ -102,9 +103,11 @@ export default function JobDetail({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={handleFavorite}>
-          <FavoriteIcon sx={{color: like ? 'secondary.main' : 'danger.main'}} />
-        </IconButton>
+        {enableLike && (
+          <IconButton aria-label="add to favorites" onClick={handleFavorite}>
+            <FavoriteIcon sx={{color: like ? 'secondary.main' : 'danger.main'}} />
+          </IconButton>
+        )}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

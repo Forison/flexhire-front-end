@@ -33,7 +33,7 @@ export default function JobListings(): JSX.Element {
           <Box className='row p-3'>
             {jobs.map((job, index) => (
               <Box className='col-12 col-sm-6 col-md-4 col-lg-3' key={index}>
-                <Job job={job} />
+                <Job job={job} enableLike />
               </Box>
             ))}
           </Box>
