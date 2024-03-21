@@ -9,7 +9,6 @@ import { Link, Typography } from '@mui/material'
 import { signInSchema } from '../Helpers/schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  BASE_API_ENDPOINT,
   POSITIVE_FEEDBACK,
   storeToken,
 } from '../Helpers/helperMethods'
@@ -41,7 +40,7 @@ export default function SignIn({ setHasAccount }: Prop): JSX.Element {
     setIsLoading(true)
     const { email, password } = data
  
-    axios.post(`${BASE_API_ENDPOINT}/login`, {
+    axios.post(`${process.env.REACT_APP_REST_API_ENDPOINT}/login`, {
       user: { email, password }
     })
     .then(function (response) {

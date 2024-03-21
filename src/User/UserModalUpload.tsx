@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie'
 import { useForm } from 'react-hook-form'
 import { Box, Modal, Button, IconButton, Avatar } from '@mui/material'
 import { TextField } from '@mui/material'
-import { BASE_API_ENDPOINT, POSITIVE_FEEDBACK } from '../Helpers/helperMethods'
+import { POSITIVE_FEEDBACK } from '../Helpers/helperMethods'
 import Notice from '../AlertBanner/Notice'
 
 const style = {
@@ -37,7 +37,7 @@ export default function UserModalUpload(): JSX.Element {
     data.avatar = (document.getElementById('image') as HTMLInputElement)?.files
     formData.append('image', data.avatar[0])
 
-    axios.patch(`${BASE_API_ENDPOINT}/create_profile_picture`, formData)
+    axios.patch(`${process.env.REACT_APP_REST_API_ENDPOINT}/create_profile_picture`, formData)
       .then(function (response) {
         const { data: { status: { code, message  }} } = response
         if(code === POSITIVE_FEEDBACK){
@@ -57,7 +57,7 @@ export default function UserModalUpload(): JSX.Element {
   useEffect(() => {
     const cookies = new Cookies()
     axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
-    axios.get(`${BASE_API_ENDPOINT}/get_profile_picture`)
+    axios.get(`${process.env.REACT_APP_REST_API_ENDPOINT}/get_profile_picture`)
       .then(function (response) {
         setAvatar(response.data.data)
       })

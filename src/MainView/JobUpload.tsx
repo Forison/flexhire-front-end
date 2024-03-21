@@ -8,7 +8,6 @@ import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { jobSchema } from '../Helpers/schema'
 import Loading from '../Loading/Loading'
 import {
-  BASE_API_ENDPOINT,
   POSITIVE_FEEDBACK,
 } from '../Helpers/helperMethods'
 import Notice from '../AlertBanner/Notice'
@@ -46,7 +45,7 @@ export default function JobUpload(): JSX.Element {
 
     const cookies = new Cookies()
     axios.defaults.headers.common['Authorization'] = `${cookies.get('access_token')}`
-    axios.post(`${BASE_API_ENDPOINT}/jobs`, formData)
+    axios.post(`${process.env.REACT_APP_REST_API_ENDPOINT}/jobs`, formData)
       .then(function (response) {
         const { data: { status: { message, code  }} } = response
         if(code === POSITIVE_FEEDBACK){

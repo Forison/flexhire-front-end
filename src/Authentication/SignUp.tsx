@@ -6,8 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Link, Typography } from '@mui/material'
 import { signUpSchema } from '../Helpers/schema'
 import Loading from '../Loading/Loading'
-import { 
-  BASE_API_ENDPOINT,
+import {
   POSITIVE_FEEDBACK,
   storeToken,
 } from '../Helpers/helperMethods'
@@ -28,6 +27,8 @@ export default function SignIn({ setHasAccount }: Prop): JSX.Element {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIssuccess] = useState(false)
   const navigate = useNavigate()
+  const ENDPOINT = process.env
+  console.log(ENDPOINT)
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: defaultValues,
@@ -38,7 +39,7 @@ export default function SignIn({ setHasAccount }: Prop): JSX.Element {
     console.log(data)
     setIsLoading(true)
     const { name, email, password } = data
-    axios.post(`${BASE_API_ENDPOINT}/signup`, {
+    axios.post(`${ENDPOINT}/signup`, {
       user: { name, email, password }
     })
     .then(function (response) {
