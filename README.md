@@ -24,7 +24,7 @@ In this project, before users can acces the full application, users need to have
 render my profile and job opportunities associated with my profile
 
 ## Usage
-This project has not been deployed to production, hence can be used by setting it up locally.
+This project has not been deployed to production, heroku requires payment which I don't want to do now, hence can be used by setting it up locally.
 
 > Clone the repository to your local machine
 
@@ -43,10 +43,17 @@ get endpoint and apikey from Flexhire
 $ npm install
 ```
 
+Since we do not have full access to the Api controlling this front-end, we need to download the extension CORS UNBLOCK
+ and enable it some CORS policy to bypass certain CORS restrictions. Configure CORS settings as seen in the picture below
+
+![link up](./iShot_2024-03-25_10.19.16.png)
+![link up](./iShot_2024-03-25_10.19.31.png)
+
+Start application by running the command
+
 ```sh
 $ npm start
 ```
-
 ## Designed and developed by
 
 [Boakye Addo Forison](https://github.com/Forison)

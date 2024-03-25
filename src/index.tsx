@@ -21,10 +21,11 @@ const apiEndpoint = `${process.env.REACT_APP_FLEXHIRE_API_ENDPOINT}`
 
 const link = createHttpLink({
   uri: apiEndpoint,
-  credentials: 'omit',
   headers: { 
     'FLEXHIRE-API-KEY': apiKey || externalApiKey,
-  }
+    'Apollo-Require-Preflight': 'true'
+  },
+  // fetchOptions: { mode: 'no-cors' },
 })
 
 const client = new ApolloClient({
